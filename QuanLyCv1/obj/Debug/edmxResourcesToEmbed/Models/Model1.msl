@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QuanLyCVModelStoreContainer" CdmEntityContainer="QuanLyCVEntities">
+    <FunctionImportMapping FunctionImportName="detailts_hd" FunctionName="QuanLyCVModel.Store.detailts_hd" />
+    <FunctionImportMapping FunctionImportName="search_by_id" FunctionName="QuanLyCVModel.Store.search_by_id">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QuanLyCVModel.search_by_id_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="LoaiCV" ColumnName="LoaiCV" />
+          <ScalarProperty Name="ID_LOAI" ColumnName="ID_LOAI" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spDanhSach" FunctionName="QuanLyCVModel.Store.spDanhSach">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QuanLyCVModel.spDanhSach_Result">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TenNhaCungCap" ColumnName="TenNhaCungCap" />
+          <ScalarProperty Name="LoaiCongViec" ColumnName="LoaiCongViec" />
+          <ScalarProperty Name="TenCongViec" ColumnName="TenCongViec" />
+          <ScalarProperty Name="NgayDang" ColumnName="NgayDang" />
+          <ScalarProperty Name="LuongBatDau" ColumnName="LuongBatDau" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+          <ScalarProperty Name="LoaiIdCv" ColumnName="LoaiIdCv" />
+          <ScalarProperty Name="ID1" ColumnName="ID1" />
+          <ScalarProperty Name="LoaiCV" ColumnName="LoaiCV" />
+          <ScalarProperty Name="ID_LOAI" ColumnName="ID_LOAI" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+          <ScalarProperty Name="ID_TrangThai" ColumnName="ID_TrangThai" />
+          <ScalarProperty Name="ID_STT" ColumnName="ID_STT" />
+          <ScalarProperty Name="Loai_Trang_Thai" ColumnName="Loai_Trang_Thai" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <EntitySetMapping Name="Loai_C_V">
+      <EntityTypeMapping TypeName="QuanLyCVModel.Loai_C_V">
+        <MappingFragment StoreEntitySet="Loai_C_V">
+          <ScalarProperty Name="ID_LOAI" ColumnName="ID_LOAI" />
+          <ScalarProperty Name="LoaiCV" ColumnName="LoaiCV" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SLIDEs">
+      <EntityTypeMapping TypeName="QuanLyCVModel.SLIDE">
+        <MappingFragment StoreEntitySet="SLIDE">
+          <ScalarProperty Name="IS_REMOVE" ColumnName="IS_REMOVE" />
+          <ScalarProperty Name="NGAY_DANG" ColumnName="NGAY_DANG" />
+          <ScalarProperty Name="NOI_BAT" ColumnName="NOI_BAT" />
+          <ScalarProperty Name="TRANG_THAI" ColumnName="TRANG_THAI" />
+          <ScalarProperty Name="STT" ColumnName="STT" />
+          <ScalarProperty Name="IMAGES" ColumnName="IMAGES" />
+          <ScalarProperty Name="LINK" ColumnName="LINK" />
+          <ScalarProperty Name="TIEU_DE" ColumnName="TIEU_DE" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="STT_TT">
+      <EntityTypeMapping TypeName="QuanLyCVModel.STT_TT">
+        <MappingFragment StoreEntitySet="STT_TT">
+          <ScalarProperty Name="Loai_Trang_Thai" ColumnName="Loai_Trang_Thai" />
+          <ScalarProperty Name="ID_STT" ColumnName="ID_STT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="QuanLyCVModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="QuanLyCVModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="NhaCungCaps">
+      <EntityTypeMapping TypeName="QuanLyCVModel.NhaCungCap">
+        <MappingFragment StoreEntitySet="NhaCungCap">
+          <ScalarProperty Name="ID_TrangThai" ColumnName="ID_TrangThai" />
+          <ScalarProperty Name="MoTa" ColumnName="MoTa" />
+          <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+          <ScalarProperty Name="LoaiIdCv" ColumnName="LoaiIdCv" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+          <ScalarProperty Name="LuongBatDau" ColumnName="LuongBatDau" />
+          <ScalarProperty Name="NgayDang" ColumnName="NgayDang" />
+          <ScalarProperty Name="TenCongViec" ColumnName="TenCongViec" />
+          <ScalarProperty Name="LoaiCongViec" ColumnName="LoaiCongViec" />
+          <ScalarProperty Name="TenNhaCungCap" ColumnName="TenNhaCungCap" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spDanhSachCv" FunctionName="QuanLyCVModel.Store.spDanhSachCv">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="QuanLyCVModel.spDanhSachCv_Result">
+          <ScalarProperty Name="TenNhaCungCap" ColumnName="TenNhaCungCap" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="TenCongViec" ColumnName="TenCongViec" />
+          <ScalarProperty Name="NgayDang" ColumnName="NgayDang" />
+          <ScalarProperty Name="LuongBatDau" ColumnName="LuongBatDau" />
+          <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+          <ScalarProperty Name="LoaiIdCv" ColumnName="LoaiIdCv" />
+          <ScalarProperty Name="LoaiCV" ColumnName="LoaiCV" />
+          <ScalarProperty Name="ID_TrangThai" ColumnName="ID_TrangThai" />
+          <ScalarProperty Name="ID_STT" ColumnName="ID_STT" />
+          <ScalarProperty Name="Loai_Trang_Thai" ColumnName="Loai_Trang_Thai" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

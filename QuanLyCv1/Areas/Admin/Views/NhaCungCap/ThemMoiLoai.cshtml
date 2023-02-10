@@ -1,0 +1,50 @@
+﻿@model QuanLyCv1.Models.NhaCungCap
+
+@{
+    ViewBag.Title = "ThemMoiLoai";
+    Layout = "~/Areas/Admin/Views/Shared/Layout-admin.cshtml";
+    var nhaCungCap = new QuanLyCv1.Models.mapNhaCungCap().DanhSach();
+
+}
+
+<h2>ThemMoiLoai</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.ID)
+    
+    <div class="form-horizontal">
+        <h4>NhaCungCap</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LoaiIdCv, "LoaiIdCv", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="ID" class="form-control">
+                    @foreach(var item in nhaCungCap)
+                {
+                    <option value=@item.ID @Html.Raw(item.ID == Model.LoaiIdCv?"selected":"")>@item.Loai_C_V.LoaiCV</option>
+                }
+                </select>
+                @Html.ValidationMessageFor(model => model.LoaiIdCv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

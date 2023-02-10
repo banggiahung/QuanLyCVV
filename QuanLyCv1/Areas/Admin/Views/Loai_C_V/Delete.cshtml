@@ -1,0 +1,12 @@
+﻿@model QuanLyCv1.Models.Loai_C_V
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/Layout-admin.cshtml";
+}
+
+@if (ViewBag.sttL != null)
+{
+    <div class="alert alert-danger">@ViewBag.sttL</div>
+}
+<a href="~/Admin/Loai_C_V" class="btn btn-success">Trở về</a>

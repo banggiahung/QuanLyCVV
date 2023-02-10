@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyCVModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="QuanLyCVEntities" annotation:LazyLoadingEnabled="true">
+    <FunctionImport Name="detailts_hd">
+      <Parameter Name="start" Mode="In" Type="DateTime" />
+      <Parameter Name="end" Mode="In" Type="DateTime" />
+    </FunctionImport>
+    <FunctionImport Name="search_by_id" ReturnType="Collection(QuanLyCVModel.search_by_id_Result)">
+      <Parameter Name="id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="spDanhSach" ReturnType="Collection(QuanLyCVModel.spDanhSach_Result)">
+      <Parameter Name="idCv" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <EntitySet Name="Loai_C_V" EntityType="QuanLyCVModel.Loai_C_V" />
+    <EntitySet Name="SLIDEs" EntityType="QuanLyCVModel.SLIDE" />
+    <EntitySet Name="STT_TT" EntityType="QuanLyCVModel.STT_TT" />
+    <EntitySet Name="sysdiagrams" EntityType="QuanLyCVModel.sysdiagram" />
+    <EntitySet Name="Users" EntityType="QuanLyCVModel.User" />
+    <EntitySet Name="NhaCungCaps" EntityType="QuanLyCVModel.NhaCungCap" />
+    <AssociationSet Name="FK_LoaiCVCate" Association="QuanLyCVModel.FK_LoaiCVCate">
+      <End Role="Loai_C_V" EntitySet="Loai_C_V" />
+      <End Role="NhaCungCap" EntitySet="NhaCungCaps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_NhaCungCap_STT_TT" Association="QuanLyCVModel.FK_NhaCungCap_STT_TT">
+      <End Role="STT_TT" EntitySet="STT_TT" />
+      <End Role="NhaCungCap" EntitySet="NhaCungCaps" />
+    </AssociationSet>
+    <FunctionImport Name="spDanhSachCv" ReturnType="Collection(QuanLyCVModel.spDanhSachCv_Result)">
+      <Parameter Name="idLoaiCv" Mode="In" Type="Int32" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="search_by_id_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="LoaiCV" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="ID_LOAI" Nullable="true" />
+  </ComplexType>
+  <ComplexType Name="spDanhSachCv_Result">
+    <Property Type="String" Name="TenNhaCungCap" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="TenCongViec" Nullable="true" MaxLength="500" />
+    <Property Type="DateTime" Name="NgayDang" Nullable="true" Precision="23" />
+    <Property Type="Double" Name="LuongBatDau" Nullable="true" />
+    <Property Type="String" Name="HinhAnh" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="LoaiIdCv" Nullable="true" />
+    <Property Type="String" Name="LoaiCV" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="ID_TrangThai" Nullable="true" />
+    <Property Type="Int32" Name="ID_STT" Nullable="true" />
+    <Property Type="String" Name="Loai_Trang_Thai" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <ComplexType Name="spDanhSach_Result">
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="TenNhaCungCap" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="LoaiCongViec" Nullable="true" MaxLength="50" />
+    <Property Type="String" Name="TenCongViec" Nullable="true" MaxLength="500" />
+    <Property Type="DateTime" Name="NgayDang" Nullable="true" Precision="23" />
+    <Property Type="Double" Name="LuongBatDau" Nullable="true" />
+    <Property Type="String" Name="HinhAnh" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="LoaiIdCv" Nullable="true" />
+    <Property Type="Int32" Name="ID1" Nullable="false" />
+    <Property Type="String" Name="LoaiCV" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="ID_LOAI" Nullable="true" />
+    <Property Type="String" Name="DiaChi" Nullable="true" />
+    <Property Type="String" Name="MoTa" Nullable="true" />
+    <Property Type="Int32" Name="ID_TrangThai" Nullable="true" />
+    <Property Type="Int32" Name="ID_STT" Nullable="true" />
+    <Property Type="String" Name="Loai_Trang_Thai" Nullable="true" MaxLength="100" />
+  </ComplexType>
+  <EntityType Name="Loai_C_V">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="LoaiCV" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="ID_LOAI" Type="Int32" />
+    <NavigationProperty Name="NhaCungCaps" Relationship="QuanLyCVModel.FK_LoaiCVCate" FromRole="Loai_C_V" ToRole="NhaCungCap" />
+  </EntityType>
+  <EntityType Name="SLIDE">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TIEU_DE" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+    <Property Name="LINK" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="IMAGES" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="STT" Type="Byte" />
+    <Property Name="TRANG_THAI" Type="Boolean" />
+    <Property Name="NOI_BAT" Type="Boolean" />
+    <Property Name="NGAY_DANG" Type="DateTime" Precision="3" />
+    <Property Name="IS_REMOVE" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="STT_TT">
+    <Key>
+      <PropertyRef Name="ID_STT" />
+    </Key>
+    <Property Name="ID_STT" Type="Int32" Nullable="false" />
+    <Property Name="Loai_Trang_Thai" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="NhaCungCaps" Relationship="QuanLyCVModel.FK_NhaCungCap_STT_TT" FromRole="STT_TT" ToRole="NhaCungCap" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Role" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="NhaCungCap">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TenNhaCungCap" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="LoaiCongViec" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="TenCongViec" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="NgayDang" Type="DateTime" Precision="3" />
+    <Property Name="LuongBatDau" Type="Double" />
+    <Property Name="HinhAnh" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="LoaiIdCv" Type="Int32" />
+    <Property Name="DiaChi" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MoTa" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ID_TrangThai" Type="Int32" />
+    <NavigationProperty Name="Loai_C_V" Relationship="QuanLyCVModel.FK_LoaiCVCate" FromRole="NhaCungCap" ToRole="Loai_C_V" />
+    <NavigationProperty Name="STT_TT" Relationship="QuanLyCVModel.FK_NhaCungCap_STT_TT" FromRole="NhaCungCap" ToRole="STT_TT" />
+  </EntityType>
+  <Association Name="FK_LoaiCVCate">
+    <End Type="QuanLyCVModel.Loai_C_V" Role="Loai_C_V" Multiplicity="0..1" />
+    <End Type="QuanLyCVModel.NhaCungCap" Role="NhaCungCap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Loai_C_V">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="NhaCungCap">
+        <PropertyRef Name="LoaiIdCv" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_NhaCungCap_STT_TT">
+    <End Type="QuanLyCVModel.STT_TT" Role="STT_TT" Multiplicity="0..1" />
+    <End Type="QuanLyCVModel.NhaCungCap" Role="NhaCungCap" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="STT_TT">
+        <PropertyRef Name="ID_STT" />
+      </Principal>
+      <Dependent Role="NhaCungCap">
+        <PropertyRef Name="ID_TrangThai" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <ComplexType Name="spDanhSachCv_Result1">
+    <Property Type="String" Name="TenNhaCungCap" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="ID" Nullable="false" />
+    <Property Type="String" Name="TenCongViec" Nullable="true" MaxLength="500" />
+    <Property Type="DateTime" Name="NgayDang" Nullable="true" Precision="23" />
+    <Property Type="Double" Name="LuongBatDau" Nullable="true" />
+    <Property Type="String" Name="HinhAnh" Nullable="true" MaxLength="500" />
+    <Property Type="Int32" Name="LoaiIdCv" Nullable="true" />
+    <Property Type="Int32" Name="ID_TrangThai" Nullable="true" />
+    <Property Type="String" Name="LoaiCV" Nullable="true" MaxLength="50" />
+    <Property Type="Int32" Name="ID_STT" Nullable="true" />
+    <Property Type="String" Name="Loai_Trang_Thai" Nullable="true" MaxLength="100" />
+  </ComplexType>
+</Schema>

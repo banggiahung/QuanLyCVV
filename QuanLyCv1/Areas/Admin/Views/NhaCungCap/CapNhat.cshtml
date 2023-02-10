@@ -1,0 +1,113 @@
+﻿@model QuanLyCv1.Models.NhaCungCap
+
+@{
+    ViewBag.Title = "Sua";
+    Layout = "~/Areas/Admin/Views/Shared/Layout-admin.cshtml";
+}
+<script src="~/Areas/Admin/Content/ckeditor/ckeditor.js"></script>
+
+<h2>Sửa nhà cung cấp </h2>
+<form action="" method="post"></form>
+@using (Html.BeginForm("", "", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.ID)
+
+    <div class="form-horizontal">
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Tên nhà cung cấp</label>
+
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenNhaCungCap, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenNhaCungCap, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+                <label class="control-label col-md-2">Loại Công Việc</label>
+
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LoaiIdCv, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LoaiIdCv, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.LoaiIdCv, "Loại Công việc", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("LoaiIdCv", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.LoaiIdCv, "", new { @class = "text-danger" })
+                @*<select name="ID" class="form-control">
+                        @foreach (var item in nhaCungCap)
+                        {
+                            <option value="@item.ID" @Html.Raw(item.ID == Model.LoaiIdCv ? "selected" : "")>@item.LoaiCV</option>
+                        }
+                    </select>*@
+
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-md-6">Tên Công Việc</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TenCongViec, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenCongViec, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label class="control-label col-md-4">Ngày Đăng</label>
+
+                <div class="col-md-10">
+                    <input name="NgayDang" class="form-control" value="@String.Format("{0:d}",Model.NgayDang)" type="datetime" readonly />
+                    @Html.ValidationMessageFor(model => model.NgayDang, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-md-4">
+                <label class="control-label col-md-4">Lương khởi điểm</label>
+
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LuongBatDau, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LuongBatDau, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+
+        </div>
+        @*<div class="form-group">
+                <label class="control-label col-md-4">Hình ảnh</label>
+
+                <div class="col-md-10">
+                    @Html.TextBoxFor(model => model.HinhAnh, null, new { type = "file", @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.HinhAnh, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
+        <div class="form-group">
+            <label class="control-label col-md-4">Mô tả công việc</label>
+
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.MoTa, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MoTa, "", new { @class = "text-danger" })
+            </div>
+            <script>
+                CKEDITOR.replace("MoTa");
+            </script>
+        </div>
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Cập nhật" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="~/Admin/NhaCungCap/DanhSach">Trở lại danh sách</a>
+</div>

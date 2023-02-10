@@ -1,0 +1,328 @@
+﻿
+@model PagedList.IPagedList<QuanLyCv1.Models.NhaCungCap>
+
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Danh Sách Việc Làm";
+    Layout = "~/Areas/Admin/Views/Shared/Layout-admin.cshtml";
+}
+<script src="~/Areas/Admin/Content/plugins/jquery/dist/jquery.min.js"></script>
+<script src="~/Areas/Admin/Content/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+@section jsFooter{
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(".btn-view-details").off("click").on("click", function (e) {
+            e.preventDefault();
+            var id = $(this).data("id");
+            $("#Modal-" + id).modal();
+        });
+
+
+        $(document).ready(function () {
+            $(".change-status-bill").off("click").on("click", function (event) {
+                event.preventDefault();
+                var id = $(this).data("id");
+
+                var status = $(this).data("status");
+
+                if (status == 4) {
+
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Xin lỗi hàng đã chốt đơn',
+                        toast: true,
+                    })
+                    return;
+                }
+
+                Swal.fire({
+                    title: 'Đổi trạng thái!',
+                    type: 'success',
+                    toast: true,
+
+                    showCloseButton: true,
+                    showCancelButton: true,
+                    showDenyButton: true,
+                    allowEscapeKey: true,
+                    allowOutsideClick: true,
+
+                    confirmButtonText: 'Đang tuyển',
+                    confirmButtonAriaLabel: '1',
+                    confirmButtonColor: 'green',
+
+                    denyButtonText: 'Hết Hạn',
+                    denyButtonAriaLabel: '2',
+                    denyButtonColor: "red",
+
+                }).then((result) => {
+                    var confirm;
+                    if (result.isConfirmed) {
+                        confirm = 1;
+                    }
+                    else {
+                        confirm = 2;
+                    }
+                    if (status != confirm) {
+                        $.ajax({
+                            url: '/admin/NhaCungCap/CapNhatStt/' + id,
+                            type: 'POST',
+                            dataType: 'json',
+                            data: {
+                                status: confirm
+                            },
+                            success: function (data) {
+                                location.href = "/admin/NhaCungCap/DanhSach";
+                            }
+                        })
+                    }
+                });
+            });
+        });</script>
+}
+<style>
+    .badge {
+        cursor: pointer;
+        font-size: 20px;
+    }
+</style>
+<style>
+    .ul.pagination {
+        display: inline-block;
+        padding: 0;
+        margin: 0;
+    }
+
+    ul.pagination li {
+        display: inline;
+        cursor: pointer;
+        border: 1px solid green;
+    }
+
+        ul.pagination li a {
+            color: black;
+            float: left;
+            padding: 8px 16px;
+            text-decoration: none;
+            transition: background-color .3s;
+        }
+
+            ul.pagination li a.active {
+                background-color: #4CAF50;
+                color: white;
+            }
+
+            ul.pagination li a:hover:not(.active) {
+                background-color: #ddd;
+            }
+</style>
+
+<a class="btn btn-dark mb-3" href="~/Admin/NhaCungCap/ThemMoi">Thêm mới</a>
+<a class="btn btn-success mb-3" href="~/Admin/Loai_C_V/Create">Thêm mới loại công việc</a>
+
+
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Danh sách nhà cung cấp việc làm</h2>
+    </div>
+
+    <div class="col-md-12 mb-3">
+
+        @using (Html.BeginForm("DanhSach", "NhaCungCap", FormMethod.Get, new { @class = "form-inline" }))
+        {
+
+            <div class="input-group mb-3" style="width:50%">
+
+                <label class="mr-2">Chọn theo danh mục  </label>
+                @Html.DropDownList("CategoryID", "----------Tất Cả----------")
+                <hr />
+                <input type="Text" class="form-control mx-sm-3" value="@ViewBag.key" name="name" placeholder="Tên công việc">
+                <input type="submit" class="btn btn-success ml-2" value="Tìm Kiếm">
+
+            </div>
+
+
+        }
+
+
+    </div>
+
+    <div class="col-md-12">
+        <div class="h3">
+            Trang @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount
+
+        </div>
+        <table class="table-bordered table table-light">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">
+                        ID
+                    </th>
+                    <th scope="col">
+                        Tên Nhà Cung Cấp
+                    </th>
+                    <th scope="col">
+                        Hinh ảnh nhà Cung Cấp
+                    </th>
+
+                    <th scope="col">
+                        Loại Công Việc
+                    </th>
+                    <th scope="col">
+                        Tên công việc
+                    </th>
+                    <th scope="col">
+                        Ngày bắt đầu đăng
+                    </th>
+                    <th scope="col">
+                        Lương khởi điểm
+                    </th>
+                    <th scope="col">
+                        Trạng thái
+                    </th>
+                    <th scope="col">
+                        Mô tả
+                    </th>
+                    <th scope="col">
+                        Tùy chỉnh
+                    </th>
+
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.ID
+                    </td>
+                    <td>
+                        <a href="/Admin/NhaCungCap/ChiTiet?id=@item.ID">@item.TenNhaCungCap</a>
+                    </td>
+
+                    <td>
+                        <img src="@item.HinhAnh" style="width:40%; height: 100px;" />
+                    </td>
+                    <td>
+                        @if (item.LoaiIdCv == null)
+                        {
+                            <span>Chưa có loại danh mục</span>
+                        }
+                        else
+                        {
+                            @item.Loai_C_V.LoaiCV
+                        }
+                    </td>
+                    <td>
+                        @item.TenCongViec
+                    </td>
+                    <td>
+                        @String.Format("{0:d}", item.NgayDang)
+                    </td>
+                    <td>
+                        @String.Format("{0:0,0}", item.LuongBatDau)<sup>đ</sup>
+                    </td>
+                    <td>
+
+                        @if (item.ID_TrangThai == 1)
+                        {
+                            <span data-id="@item.ID" data-status="@item.ID_TrangThai" class="btn badge change-status-bill btn-success">
+                                @item.STT_TT.Loai_Trang_Thai
+                            </span>
+                        }
+                        else
+                        {
+                            <span data-id="@item.ID" data-status="@item.ID_TrangThai" class="btn badge change-status-bill btn-danger">
+                                @item.STT_TT.Loai_Trang_Thai
+                            </span>
+                        }
+                    </td>
+                    <td>
+                        @Html.Raw(item.MoTa)
+                    </td>
+                    <td>
+                        <a href="~/Admin/NhaCungCap/CapNhat?id=@item.ID">Sửa</a> |
+                        <a href="~/Admin/NhaCungCap/Xoa?id=@item.ID" style="color:red">Xóa</a>
+
+                    </td>
+                </tr>
+            }
+
+
+
+        </table>
+
+        <div class="pagination h3 ">
+            @Html.PagedListPager(Model, page => Url.Action("DanhSach",
+           new { page }))
+
+        </div>
+
+        <div class="modal fade" id="status-modal" tabindex="-1" role="dialog" aria-labelledby="status-modal-label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="status-modal-label">Cập nhật trạng thái sản phẩm</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" method="post">
+                            <div class="form-group">
+                                <label for="product-status">Trạng thái sản phẩm</label>
+                                <select class="form-control" id="product-status" name="product-status">
+                                    @foreach (var stt in Model)
+                                    {
+                                        <option value="@stt.STT_TT.ID_STT">@stt.STT_TT.Loai_Trang_Thai</option>
+
+                                    }
+
+                                    @*<option value="2">Hết hàng</option>
+                                        <option value="3">Đang giao</option>*@
+                                </select>
+                            </div>
+                            <input type="hidden" name="product-id" value="#product-id#">
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary" id="save-status-button">Lưu</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+@section jsauto{
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#txtProduct").autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: "/NhaCungCap/AutoSearch",
+                        type: "POST",
+                        dataType: "json",
+                        data: { name: request.term },
+                        success: function (data) {
+                            response($.map(data, function (item) {
+                                return { label: item.label };
+                            }));
+                        }
+                    });
+                },
+                minLength: 1
+            });
+        });
+    </script>
+
+
+}
+
+

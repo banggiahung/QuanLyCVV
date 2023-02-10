@@ -1,0 +1,40 @@
+﻿@model QuanLyCv1.Models.Loai_C_V
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Areas/Admin/Views/Shared/Layout-admin.cshtml";
+}
+
+
+<h2>Sửa</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Hãy chắc chắn bạn muốn sửa</h4>
+        <p class="alert-warning"> Vì nếu sửa sẽ thay đổi toàn bộ thứ liên quan trong nhà cung cấp!!!</p>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.ID)
+
+        <div class="form-group">
+            <label class = "control-label col-md-2">Tên loại công việc</label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LoaiCV, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LoaiCV, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Lưu" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="~/Admin/Loai_C_V" class="btn btn-success">Trở về</a>
+</div>

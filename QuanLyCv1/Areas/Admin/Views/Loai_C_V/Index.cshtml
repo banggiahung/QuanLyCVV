@@ -1,0 +1,43 @@
+﻿@model IEnumerable<QuanLyCv1.Models.Loai_C_V>
+
+@{
+    ViewBag.Title = "Loại Công Việc";
+    Layout = "~/Areas/Admin/Views/Shared/Layout-admin.cshtml";
+}
+
+<a href="~/Admin/NhaCungCap/DanhSach" class="btn btn-primary mb-5">Về trang danh sách</a>
+<a class="btn btn-success mb-5" href="~/Admin/Loai_C_V/Create">Thêm mới loại công việc</a>
+
+
+<table class="table">
+    <tr>
+        <th class="col-md-2">
+            Tên loại công việc
+        </th>
+        <th class="col-md-3">
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
+        <th>
+
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.LoaiCV
+            </td>
+            <td>
+                @item.ID
+            </td>
+            <td>
+                <a href="~/Admin/Loai_C_V/Delete?id=@item.ID" class="btn btn-danger">Xóa</a>
+                <a href="~/Admin/Loai_C_V/Edit?id=@item.ID" class="btn btn-primary">Sửa</a>
+            </td>
+        </tr>
+    }
+
+
+
+</table>
